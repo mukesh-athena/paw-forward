@@ -9,15 +9,15 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 export default function AdoptAPaw() {
   const [selected, setSelected] = useState(null);
-  const [yodaDogs, setYodaDogs] = useState([]);
-  const [wsdDogs, setWsdDogs] = useState([]);
+  const [yodaPets, setYodaPets] = useState([]);
+  const [wsdPets, setWsdPets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
 
-    async function fetchDogs() {
+    async function fetchPets() {
       try {
         const yodaQuery = query(collection(db, "dogs_yoda"), orderBy("addedAt", "desc"));
         const wsdQuery = query(collection(db, "dogs_wsd"), orderBy("addedAt", "desc"));
@@ -29,17 +29,17 @@ export default function AdoptAPaw() {
 
         if (cancelled) return;
 
-        setYodaDogs(yodaSnap.docs.map((d) => ({ id: d.id, ...d.data() })));
-        setWsdDogs(wsdSnap.docs.map((d) => ({ id: d.id, ...d.data() })));
+        setYodaPets(yodaSnap.docs.map((d) => ({ id: d.id, ...d.data() })));
+        setWsdPets(wsdSnap.docs.map((d) => ({ id: d.id, ...d.data() })));
       } catch (err) {
-        console.error("Failed to load dogs:", err);
-        if (!cancelled) setError("Couldn't load adoptable dogs. Please refresh.");
+        console.error("Failed to load pets:", err);
+        if (!cancelled) setError("Couldn't load adoptable pets. Please refresh.");
       } finally {
         if (!cancelled) setLoading(false);
       }
     }
 
-    fetchDogs();
+    fetchPets();
     return () => { cancelled = true; };
   }, []);
 
@@ -71,7 +71,7 @@ export default function AdoptAPaw() {
             className="text-base md:text-lg text-[#6B1A1A]/85 leading-relaxed max-w-2xl mx-auto animate-fade-in"
             style={{ fontFamily: "var(--font-montserrat)", animationDelay: "0.4s", animationFillMode: "both" }}
           >
-            These are the dogs currently looking for homes through our partner
+            These are the pets currently looking for homes through our partner
             shelters. Find one who feels like family, and the shelter takes it
             from there.
           </p>
@@ -95,11 +95,11 @@ export default function AdoptAPaw() {
             shelterId="yoda"
             shelterName="YODA"
             shelterTagline="Youth Organisation in Defence of Animals"
-            dogs={yodaDogs}
+            pets={yodaPets}
             loading={loading}
             error={error}
-            onAdopt={(dog) =>
-              setSelected({ dog, shelterId: "yoda", shelterName: "YODA" })
+            onAdopt={(pet) =>
+              setSelected({ dog: pet, shelterId: "yoda", shelterName: "YODA" })
             }
           />
 
@@ -107,11 +107,11 @@ export default function AdoptAPaw() {
             shelterId="wsd"
             shelterName="WSD"
             shelterTagline="Welfare of Stray Dogs"
-            dogs={wsdDogs}
+            pets={wsdPets}
             loading={loading}
             error={error}
-            onAdopt={(dog) =>
-              setSelected({ dog, shelterId: "wsd", shelterName: "WSD" })
+            onAdopt={(pet) =>
+              setSelected({ dog: pet, shelterId: "wsd", shelterName: "WSD" })
             }
           />
         </div>
@@ -131,7 +131,7 @@ export default function AdoptAPaw() {
   );
 }
 
-function ShelterSection({ shelterId, shelterName, shelterTagline, dogs, loading, error, onAdopt }) {
+function ShelterSection({ shelterId, shelterName, shelterTagline, pets, loading, error, onAdopt }) {
   return (
     <section className="py-20 md:py-28 px-6">
       <div className="max-w-7xl mx-auto">
@@ -155,7 +155,7 @@ function ShelterSection({ shelterId, shelterName, shelterTagline, dogs, loading,
         {loading && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {[1, 2, 3].map((i) => (
-              <DogCardSkeleton key={i} />
+              <PetCardSkeleton key={i} />
             ))}
           </div>
         )}
@@ -171,39 +171,39 @@ function ShelterSection({ shelterId, shelterName, shelterTagline, dogs, loading,
         )}
 
         {/* Empty state */}
-        {!loading && !error && dogs.length === 0 && (
+        {!loading && !error && pets.length === 0 && (
           <p
             className="text-center text-[#6B1A1A]/70 italic"
             style={{ fontFamily: "var(--font-montserrat)" }}
           >
-            No dogs currently listed from {shelterName}. Check back soon.
+            No pets currently listed from {shelterName}. Check back soon.
           </p>
         )}
 
-        {/* Dog cards */}
-        {!loading && !error && dogs.length > 0 && (
+        {/* Pet cards */}
+        {!loading && !error && pets.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-            {dogs.map((dog) => (
+            {pets.map((pet) => (
               <article
-                key={dog.id}
+                key={pet.id}
                 className="group rounded-sm overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 bg-white"
               >
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#FAF6EF]">
-                  <img
-                    src={dog.image}
-                    alt={`${dog.name} — adoptable pet at ${shelterName}`}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                 <img
+  src={pet.image}
+  alt={`${pet.name} — adoptable pet at ${shelterName}`}
+  className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+/>
                 </div>
                 <div className="p-6 space-y-4">
                   <h3
                     className="text-3xl text-[#6B1A1A] text-center"
                     style={{ fontFamily: "var(--font-playfair)" }}
                   >
-                    {dog.name}
+                    {pet.name}
                   </h3>
                   <button
-                    onClick={() => onAdopt(dog)}
+                    onClick={() => onAdopt(pet)}
                     className="w-full py-3 bg-[#6B1A1A] text-white tracking-wider text-sm uppercase rounded-full hover:bg-[#8a2424] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
                     style={{ fontFamily: "var(--font-spartan)" }}
                   >
@@ -219,7 +219,7 @@ function ShelterSection({ shelterId, shelterName, shelterTagline, dogs, loading,
   );
 }
 
-function DogCardSkeleton() {
+function PetCardSkeleton() {
   return (
     <div className="rounded-sm overflow-hidden shadow-sm bg-white animate-pulse">
       <div className="aspect-[4/5] bg-[#6B1A1A]/10" />

@@ -315,7 +315,7 @@ function Result({ animal, onAdopt, onTryAgain }) {
 
       <div className="w-48 h-48 md:w-56 md:h-56 mx-auto rounded-full bg-[#FAF6EF] border-4 border-[#6B1A1A] flex items-center justify-center overflow-hidden animate-pop-in">
         {animal.image ? (
-          <img src={animal.image} alt={animal.name} className="w-full h-full object-cover" />
+          <img src={animal.image} alt={animal.name} className="w-full h-full object-cover object-top" />
         ) : (
           <span className="text-8xl">🐾</span>
         )}

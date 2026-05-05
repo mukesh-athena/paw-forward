@@ -99,12 +99,12 @@ export default function AdminPage() {
   }
 
   // ─── ADMIN DASHBOARD ─────────────────────────────────────
-  const tabs = [
-    { id: "dogs", label: "Manage Dogs" },
-    { id: "adoptions", label: "Adoption Requests" },
-    { id: "strays", label: "Stray Reports" },
-    { id: "contact", label: "Contact Messages" },
-  ];
+ const tabs = [
+  { id: "dogs", label: "Manage Pets" },
+  { id: "adoptions", label: "Adoption Requests" },
+  { id: "strays", label: "Stray Reports" },
+  { id: "contact", label: "Contact Messages" },
+];
 
   return (
     <main className="min-h-screen bg-[#FAF6EF]">
