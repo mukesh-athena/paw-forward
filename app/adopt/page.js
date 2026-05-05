@@ -191,7 +191,7 @@ function ShelterSection({ shelterId, shelterName, shelterTagline, dogs, loading,
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#FAF6EF]">
                   <img
                     src={dog.image}
-                    alt={`${dog.name} — adoptable dog at ${shelterName}`}
+                    alt={`${dog.name} — adoptable pet at ${shelterName}`}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
