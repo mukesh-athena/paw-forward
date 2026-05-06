@@ -1,6 +1,7 @@
 import Header from "./components/Header";
 import Timeline from "./components/Timeline";
 import Partners from "./components/Partners";
+import Closer from "./components/Closer";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -70,6 +71,7 @@ export default function Home() {
 
       <Timeline />
       <Partners />
+      <Closer />
       <Footer />
     </main>
   );

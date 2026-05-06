@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Header from "../components/Header";
+import Closer from "../components/Closer";
 import Footer from "../components/Footer";
 import { db } from "@/lib/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -15,26 +16,41 @@ export default function ReportStrays() {
     email: "",
     phone: "",
   });
+
   const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const validate = () => {
     if (!formData.numStrays || Number(formData.numStrays) < 1)
       return "Please enter the approximate number of strays.";
+
     if (!formData.location.trim())
-      return "Please share the location where you saw the stray(s).";
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      return "Please paste a Google or Apple Maps link.";
+
+    if (!/^https?:\/\/.+/i.test(formData.location.trim()))
+      return "Please enter a valid maps link.";
+
+    if (
+      formData.email &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+    )
       return "Please enter a valid email address.";
+
     return null;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const err = validate();
+
     if (err) {
       setErrorMsg(err);
       setStatus("error");
@@ -50,56 +66,71 @@ export default function ReportStrays() {
         numStrays: Number(formData.numStrays),
         submittedAt: serverTimestamp(),
       });
+
       setStatus("success");
     } catch (err) {
       console.error(err);
-      setErrorMsg("Something went wrong. Please try again.");
+      setErrorMsg("Something went wrong.");
       setStatus("error");
     }
   };
 
-  // Shared paw-pattern background style for the whole page
   const pageBg = {
     backgroundColor: "#FAF6EF",
     backgroundImage: "url('/images/paw-pattern.jpg')",
     backgroundRepeat: "repeat",
-    backgroundSize: "300px",
+    backgroundSize: "280px",
   };
 
-  // ─── Success screen ──────────────────────────────────────────
   if (status === "success") {
     return (
-      <main className="min-h-screen relative" style={pageBg}>
-        <div className="absolute inset-0 bg-[#FAF6EF]/88 pointer-events-none" />
-        <div className="relative">
+      <main className="min-h-screen relative overflow-hidden" style={pageBg}>
+        <div className="absolute inset-0 bg-[#FAF6EF]/88" />
+
+        <div className="relative z-10">
           <Header />
-          <section className="pt-40 pb-32 md:pt-48 md:pb-40 px-6 animate-fade-in">
-            <div className="max-w-2xl mx-auto text-center space-y-6">
-              <div className="text-7xl animate-bounce-slow inline-block">🐾</div>
+
+          <section className="pt-40 pb-32 px-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="text-7xl mb-6 animate-bounce-slow">🐾</div>
+
               <h1
-                className="text-4xl md:text-5xl lg:text-6xl text-[#6B1A1A] leading-tight"
+                className="text-5xl md:text-6xl text-[#6B1A1A] mb-6"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
-                Thank you.
+                Report Submitted
               </h1>
+
               <p
-                className="text-base md:text-lg text-[#6B1A1A]/85 leading-relaxed max-w-lg mx-auto"
+                className="text-lg text-[#6B1A1A]/80 leading-relaxed"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
-                We&apos;ll get this to our shelter partners right away.
+                Thank you for helping Mumbai&apos;s strays.
+                Our shelter partners will review this report shortly.
               </p>
+
               <button
                 onClick={() => {
-                  setFormData({ numStrays: "", location: "", description: "", name: "", email: "", phone: "" });
+                  setFormData({
+                    numStrays: "",
+                    location: "",
+                    description: "",
+                    name: "",
+                    email: "",
+                    phone: "",
+                  });
+
                   setStatus("idle");
                 }}
-                className="mt-6 px-10 py-4 bg-[#6B1A1A] text-white tracking-wider text-sm uppercase rounded-full hover:bg-[#8a2424] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+                className="mt-10 px-10 py-4 rounded-full bg-[#6B1A1A] text-white hover:bg-[#8B2323] hover:scale-[1.03] transition-all duration-300 cursor-pointer"
                 style={{ fontFamily: "var(--font-spartan)" }}
               >
-                Submit another report
+                Submit Another Report
               </button>
             </div>
           </section>
+
+          <Closer />
           <Footer />
         </div>
       </main>
@@ -107,255 +138,321 @@ export default function ReportStrays() {
   }
 
   return (
-    <main className="min-h-screen relative" style={pageBg}>
-      {/* Cream wash on top so pattern is subtle and text stays readable */}
-      <div className="absolute inset-0 bg-[#FAF6EF]/88 pointer-events-none" />
+    <main className="min-h-screen relative overflow-hidden" style={pageBg}>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6EF]/95 via-[#FAF6EF]/88 to-[#FAF6EF]/95" />
 
-      <div className="relative">
+      <div className="relative z-10">
         <Header />
 
-        {/* ─── HERO ────────────────────────────────────────────── */}
-        <section className="pt-32 md:pt-40 pb-12 md:pb-20 px-6 animate-fade-in">
-          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-            <div className="space-y-6">
-              <p
-                className="text-sm tracking-[0.3em] text-[#6B1A1A]/70 uppercase"
-                style={{ fontFamily: "var(--font-spartan)" }}
-              >
-                Report Strays
-              </p>
-              <h1
-                className="text-5xl md:text-6xl lg:text-7xl text-[#6B1A1A] leading-tight tracking-wide"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                Reporting Unsterilised Strays
-              </h1>
-              <h2
-                className="text-3xl md:text-4xl lg:text-5xl text-[#6B1A1A]/85 leading-tight"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                Protecting the Mumbai street.
-              </h2>
-              <p
-                className="text-base md:text-lg text-[#6B1A1A]/85 leading-relaxed"
-                style={{ fontFamily: "var(--font-montserrat)" }}
-              >
-                Every stray dog deserves a safe home. Join us in reporting
-                unsterilised strays so we can help them find one.
-              </p>
-            </div>
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm">
-              <img
-                src="/images/street-dog.avif"
-                alt="A Mumbai street dog"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* ─── REPORTING PROCESS ──────────────────────────────── */}
-        <section className="py-20 md:py-28 px-6 animate-fade-in">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16 space-y-4">
-              <h2
-                className="text-4xl md:text-5xl lg:text-6xl text-[#6B1A1A] leading-tight"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                The Reporting Process
-              </h2>
-              <p
-                className="text-base md:text-lg text-[#6B1A1A]/80 max-w-xl mx-auto"
-                style={{ fontFamily: "var(--font-montserrat)" }}
-              >
-                How we turn a sighting into a safe home for a Mumbai street dog.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-12 md:gap-8">
-              <ProcessStep
-                number="01"
-                icon="/images/report-icon1.avif"
-                title="Report the Sighting"
-                description="Share the location and details of the stray dog with us."
-              />
-              <ProcessStep
-                number="02"
-                icon="/images/report-icon2.avif"
-                title="Medical Checkup"
-                description="Our team conducts a thorough health and safety assessment."
-              />
-              <ProcessStep
-                number="03"
-                icon="/images/report-icon3.avif"
-                title="Safe Placement"
-                description="Find a loving, vet-approved home for your new friend."
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* ─── FORM ────────────────────────────────────────────── */}
-        <section className="py-20 md:py-28 px-6 animate-fade-in">
-          <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-10 space-y-3">
-              <h2
-                className="text-3xl md:text-4xl text-[#6B1A1A] leading-tight"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                Submit a Report
-              </h2>
-              <p
-                className="text-sm md:text-base text-[#6B1A1A]/75"
-                style={{ fontFamily: "var(--font-montserrat)" }}
-              >
-                The more detail you share, the faster we can help.
-              </p>
-            </div>
-
-            <form
-              onSubmit={handleSubmit}
-              className="bg-white rounded-2xl shadow-sm p-8 md:p-10 space-y-6"
-            >
-              <Field
-                label="Approximate number of unsterilised strays *"
-                name="numStrays"
-                type="number"
-                value={formData.numStrays}
-                onChange={handleChange}
-                min="1"
-                placeholder="e.g. 3"
-                required
-              />
-
-              <Field
-                label="Location *"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                placeholder="e.g. Near Bandra station, MG Road"
-                required
-              />
-
-              <TextareaField
-                label="Description (optional)"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Anything else we should know — colour, condition, behaviour..."
-              />
-
-              <div className="pt-2 border-t border-[#6B1A1A]/10">
+        {/* HERO */}
+        <section className="pt-32 md:pt-40 pb-20 px-6">
+          <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <div className="space-y-5">
                 <p
-                  className="text-xs tracking-[0.2em] text-[#6B1A1A]/60 uppercase mb-4"
+                  className="text-sm tracking-[0.3em] uppercase text-[#6B1A1A]/60"
                   style={{ fontFamily: "var(--font-spartan)" }}
                 >
-                  Your details (optional)
+                  Reporting Unsterilised Strays
                 </p>
 
-                <div className="space-y-5">
-                  <Field label="Name" name="name" value={formData.name} onChange={handleChange} placeholder="Your name" />
-                  <Field label="Email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="you@example.com" />
-                  <Field label="Phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="+91 ..." />
-                </div>
+                <h1
+                  className="text-5xl md:text-7xl leading-[0.95] text-[#6B1A1A]"
+                  style={{ fontFamily: "var(--font-playfair)" }}
+                >
+                  Help Protect
+                  <br />
+                  Mumbai&apos;s
+                  <br />
+                  Street Dogs
+                </h1>
+
+                <p
+                  className="text-lg md:text-xl text-[#6B1A1A]/75 leading-relaxed max-w-xl"
+                  style={{ fontFamily: "var(--font-montserrat)" }}
+                >
+                  Report unsterilised strays so rescue partners can respond
+                  faster and help control the population humanely.
+                </p>
               </div>
 
-              {status === "error" && errorMsg && (
-                <p
-                  className="text-sm text-[#6B1A1A] bg-[#F3BEBE] px-4 py-3 rounded-2xl"
-                  style={{ fontFamily: "var(--font-montserrat)" }}
-                  role="alert"
-                >
-                  {errorMsg}
-                </p>
-              )}
+              <div className="grid sm:grid-cols-3 gap-4 pt-4">
+                <InfoCard
+                  emoji="🐾"
+                  title="Humane"
+                  text="Focused on safe sterilisation support."
+                />
 
-              <button
-                type="submit"
-                disabled={status === "submitting"}
-                className="w-full py-4 bg-[#6B1A1A] text-white tracking-wider text-sm uppercase rounded-full hover:bg-[#8a2424] hover:scale-[1.02] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
-                style={{ fontFamily: "var(--font-spartan)" }}
-              >
-                {status === "submitting" ? "Submitting..." : "Submit Report"}
-              </button>
-            </form>
+                <InfoCard
+                  emoji="📍"
+                  title="Mumbai Wide"
+                  text="Reports across the city are reviewed."
+                />
+
+                <InfoCard
+                  emoji="⚡"
+                  title="Faster Response"
+                  text="Detailed reports help rescuers quicker."
+                />
+              </div>
+            </div>
+
+            {/* IMAGE */}
+            <div className="relative">
+              <div className="absolute -top-6 -left-6 w-40 h-40 bg-[#E8A84C]/20 blur-3xl rounded-full" />
+
+              <div className="relative overflow-hidden rounded-[2rem] shadow-2xl border border-white/50">
+                <img
+                  src="/images/street-dog.avif"
+                  alt="Street dog"
+                  className="w-full h-[650px] object-cover hover:scale-105 transition-transform duration-[2500ms]"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+              </div>
+            </div>
           </div>
         </section>
 
+        {/* FORM SECTION */}
+        <section className="pb-24 px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-10">
+              <p
+                className="text-sm md:text-base text-[#6B1A1A]/70 mb-4"
+                style={{ fontFamily: "var(--font-montserrat)" }}
+              >
+                Help Mumbai&apos;s street animals safely.
+              </p>
+
+              <div className="flex items-center gap-5 mb-5">
+                <div className="w-16 h-[2px] bg-[#E8A84C]" />
+
+                <h2
+                  className="text-4xl md:text-5xl text-[#6B1A1A]"
+                  style={{ fontFamily: "var(--font-playfair)" }}
+                >
+                  Submit a Report
+                </h2>
+              </div>
+
+              <p
+                className="text-base text-[#6B1A1A]/70 leading-relaxed max-w-2xl"
+                style={{ fontFamily: "var(--font-montserrat)" }}
+              >
+                The more details you share, the easier it becomes for rescuers
+                and shelter partners to identify and help these strays.
+              </p>
+            </div>
+
+            {/* FLOATING GLASS FORM */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-white/40 blur-3xl rounded-[3rem]" />
+
+              <form
+                onSubmit={handleSubmit}
+                className="relative grid lg:grid-cols-2 gap-10 bg-white/75 backdrop-blur-xl border border-white/60 rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_80px_rgba(107,26,26,0.08)]"
+              >
+                {/* LEFT */}
+                <div className="space-y-7">
+                  <Field
+                    label="Approximate number of strays *"
+                    name="numStrays"
+                    type="number"
+                    value={formData.numStrays}
+                    onChange={handleChange}
+                    placeholder="e.g. 3"
+                    required
+                  />
+
+                  <Field
+                    label="Google / Apple Maps Link *"
+                    name="location"
+                    type="url"
+                    value={formData.location}
+                    onChange={handleChange}
+                    placeholder="Paste maps location"
+                    required
+                  />
+
+                  <TextareaField
+                    label="Description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    placeholder="Colour, condition, behaviour..."
+                  />
+                </div>
+
+                {/* RIGHT */}
+                <div className="space-y-7 flex flex-col">
+                  <div className="space-y-7">
+                    <Field
+                      label="Your Name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Your name"
+                    />
+
+                    <Field
+                      label="Email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="you@example.com"
+                    />
+
+                    <Field
+                      label="Phone"
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="+91..."
+                    />
+                  </div>
+
+                  <div className="mt-auto bg-[#FAF6EF] border border-[#6B1A1A]/10 rounded-[2rem] p-6">
+                    <h3
+                      className="text-xl text-[#6B1A1A] mb-3"
+                      style={{ fontFamily: "var(--font-playfair)" }}
+                    >
+                      Why detailed reports matter
+                    </h3>
+
+                    <p
+                      className="text-sm text-[#6B1A1A]/75 leading-relaxed"
+                      style={{ fontFamily: "var(--font-montserrat)" }}
+                    >
+                      Accurate locations and descriptions help rescue teams
+                      identify strays faster and organise sterilisation safely.
+                    </p>
+                  </div>
+                </div>
+
+                {status === "error" && errorMsg && (
+                  <div className="lg:col-span-2">
+                    <div className="bg-[#F3BEBE] text-[#6B1A1A] px-5 py-4 rounded-2xl text-sm">
+                      {errorMsg}
+                    </div>
+                  </div>
+                )}
+
+                <div className="lg:col-span-2">
+                  <button
+                    type="submit"
+                    disabled={status === "submitting"}
+                    className="group relative overflow-hidden w-full py-5 rounded-full bg-[#6B1A1A] text-white text-sm uppercase tracking-[0.25em] hover:scale-[1.01] hover:bg-[#842020] transition-all duration-500 cursor-pointer"
+                    style={{ fontFamily: "var(--font-spartan)" }}
+                  >
+                    <span className="relative z-10">
+                      {status === "submitting"
+                        ? "Submitting..."
+                        : "Submit Report"}
+                    </span>
+
+                    <span className="absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-[#E8A84C]/60 to-transparent skew-x-[-20deg] group-hover:translate-x-[450%] transition-transform duration-1000 ease-out" />
+                  </button>
+
+                  <p
+                    className="text-center text-sm text-[#6B1A1A]/60 pt-5"
+                    style={{ fontFamily: "var(--font-montserrat)" }}
+                  >
+                    Every report helps create a safer life for Mumbai&apos;s
+                    strays.
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <Closer />
         <Footer />
       </div>
     </main>
   );
 }
 
-function ProcessStep({ number, icon, title, description }) {
+function InfoCard({ emoji, title, text }) {
   return (
-    <div className="flex flex-col items-center text-center space-y-4">
-      <div className="w-24 h-24 rounded-full bg-[#E8A84C] flex items-center justify-center p-5">
-        <img src={icon} alt="" className="w-full h-full object-contain" />
-      </div>
-      <p
-        className="text-2xl text-[#6B1A1A]"
-        style={{ fontFamily: "var(--font-playfair)" }}
-      >
-        {number}
-      </p>
+    <div className="bg-white/65 backdrop-blur-md border border-white/60 rounded-3xl p-5 shadow-sm hover:-translate-y-2 transition-all duration-500">
+      <div className="text-3xl mb-4">{emoji}</div>
+
       <h3
-        className="text-2xl md:text-3xl text-[#6B1A1A]"
+        className="text-xl text-[#6B1A1A] mb-2"
         style={{ fontFamily: "var(--font-playfair)" }}
       >
         {title}
       </h3>
+
       <p
-        className="text-sm md:text-base text-[#6B1A1A]/80 leading-relaxed max-w-xs"
+        className="text-sm text-[#6B1A1A]/75 leading-relaxed"
         style={{ fontFamily: "var(--font-montserrat)" }}
       >
-        {description}
+        {text}
       </p>
     </div>
   );
 }
 
-function Field({ label, name, type = "text", value, onChange, required = false, min, placeholder }) {
+function Field({
+  label,
+  name,
+  type = "text",
+  value,
+  onChange,
+  placeholder,
+  required = false,
+}) {
   return (
     <label className="block">
       <span
-        className="block text-xs tracking-[0.2em] text-[#6B1A1A]/70 uppercase mb-2"
+        className="block text-xs uppercase tracking-[0.25em] text-[#6B1A1A]/65 mb-3"
         style={{ fontFamily: "var(--font-spartan)" }}
       >
         {label}
       </span>
+
       <input
         type={type}
         name={name}
         value={value}
         onChange={onChange}
         required={required}
-        min={min}
         placeholder={placeholder}
-        className="w-full px-5 py-3 bg-white border border-[#6B1A1A]/20 rounded-full text-[#6B1A1A] placeholder:text-[#6B1A1A]/40 focus:outline-none focus:border-[#6B1A1A] transition-colors"
+        className="w-full px-6 py-4 rounded-2xl bg-white/80 border border-[#6B1A1A]/10 text-[#6B1A1A] placeholder:text-[#6B1A1A]/35 focus:outline-none focus:border-[#E8A84C] focus:shadow-[0_0_0_4px_rgba(232,168,76,0.15)] transition-all duration-300"
         style={{ fontFamily: "var(--font-montserrat)" }}
       />
     </label>
   );
 }
 
-function TextareaField({ label, name, value, onChange, placeholder }) {
+function TextareaField({
+  label,
+  name,
+  value,
+  onChange,
+  placeholder,
+}) {
   return (
     <label className="block">
       <span
-        className="block text-xs tracking-[0.2em] text-[#6B1A1A]/70 uppercase mb-2"
+        className="block text-xs uppercase tracking-[0.25em] text-[#6B1A1A]/65 mb-3"
         style={{ fontFamily: "var(--font-spartan)" }}
       >
         {label}
       </span>
+
       <textarea
         name={name}
         value={value}
         onChange={onChange}
+        rows={7}
         placeholder={placeholder}
-        rows={4}
-        className="w-full px-5 py-3 bg-white border border-[#6B1A1A]/20 rounded-2xl text-[#6B1A1A] placeholder:text-[#6B1A1A]/40 focus:outline-none focus:border-[#6B1A1A] transition-colors resize-none"
+        className="w-full px-6 py-5 rounded-[2rem] bg-white/80 border border-[#6B1A1A]/10 text-[#6B1A1A] placeholder:text-[#6B1A1A]/35 focus:outline-none focus:border-[#E8A84C] focus:shadow-[0_0_0_4px_rgba(232,168,76,0.15)] transition-all duration-300 resize-none"
         style={{ fontFamily: "var(--font-montserrat)" }}
       />
     </label>

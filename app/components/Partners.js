@@ -7,6 +7,7 @@ export default function Partners() {
       description:
         "Providing specialized medical oversight and rehabilitation for vulnerable street puppies across Mumbai.",
     },
+
     {
       name: "WSD",
       fullName: "Welfare of Stray Dogs",
@@ -14,22 +15,40 @@ export default function Partners() {
       description:
         "Our primary partner for emergency field rescues and community-driven sterilization programs in the city.",
     },
+
+    {
+      name: "BMC",
+      fullName: "Brihanmumbai Municipal Corporation",
+      logo: "/images/bmc-logo.jpeg",
+      description:
+        "Supporting large-scale city welfare, sterilisation awareness, and safer conditions for Mumbai’s street animals.",
+    },
+
+    {
+      name: "Pawdopt",
+      fullName: "Pawdopt India",
+      logo: "/images/pawdopt-logo.jpeg",
+      description:
+        "Helping connect rescued animals with caring adopters through modern adoption and awareness initiatives.",
+    },
   ];
 
   return (
     <>
-      {/* Banner with dogs/cats peeking up + pink band */}
+      {/* Banner */}
       <section className="relative w-full">
-        {/* Image area — fixed heights so it stays a strip, doesn't blow up */}
-        <div className="relative w-full h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px] overflow-hidden">
+        <div
+          className="relative w-full overflow-hidden bg-[#A6D8D4]"
+          style={{ aspectRatio: "1200 / 422" }}
+        >
           <img
             src="/images/partners-banner.avif"
             alt="Animals we love"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-contain object-center"
           />
         </div>
 
-        {/* Pink band sits BELOW the image, matches Vipanshi's Wix layout */}
+        {/* Pink Band */}
         <div className="bg-[#D89B9B] py-12 md:py-20 px-4">
           <h2
             className="text-center text-4xl md:text-6xl lg:text-7xl text-white drop-shadow-md"
@@ -40,9 +59,10 @@ export default function Partners() {
         </div>
       </section>
 
-      {/* Partners detail section */}
-      <section className="bg-[#FAF6EF] py-24 md:py-32 px-6">
-        <div className="max-w-7xl mx-auto">
+      {/* Partners Section */}
+      <section className="bg-[#FAF6EF] py-20 md:py-28 px-6">
+        <div className="max-w-[1700px] mx-auto">
+          {/* Heading */}
           <div className="text-center mb-16 space-y-4">
             <p
               className="text-sm tracking-[0.3em] text-[#6B1A1A]/70 uppercase"
@@ -50,6 +70,7 @@ export default function Partners() {
             >
               Together We Rise
             </p>
+
             <p
               className="text-base md:text-lg text-[#6B1A1A]/85 max-w-2xl mx-auto"
               style={{ fontFamily: "var(--font-montserrat)" }}
@@ -58,33 +79,82 @@ export default function Partners() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 md:gap-20 max-w-5xl mx-auto">
+          {/* Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10">
             {partners.map((partner) => (
               <div
                 key={partner.name}
-                className="group flex flex-col items-center text-center space-y-6 p-8 rounded-lg transition-all duration-500 hover:bg-white/60"
+                className="
+                  group
+                  flex flex-col
+                  items-center
+                  text-center
+                  rounded-[34px]
+                  px-8
+                  py-10
+                  min-h-[620px]
+                  bg-white/55
+                  backdrop-blur-md
+                  border border-white/40
+                  shadow-[0_10px_40px_rgba(0,0,0,0.06)]
+                  hover:-translate-y-3
+                  hover:shadow-[0_25px_70px_rgba(107,26,26,0.12)]
+                  transition-all
+                  duration-500
+                "
               >
-                <div className="relative w-40 h-40 flex items-center justify-center">
+                {/* Logo */}
+                <div className="h-[180px] flex items-center justify-center mb-8">
                   <img
                     src={partner.logo}
                     alt={partner.name}
-                    className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                    className="
+                      max-h-[140px]
+                      max-w-[180px]
+                      object-contain
+                      transition-transform
+                      duration-500
+                      group-hover:scale-105
+                    "
                   />
                 </div>
-                <div className="space-y-2">
+
+                {/* Partner Name */}
+                <div className="h-[170px] flex items-start justify-center">
                   <h3
-                    className="text-3xl md:text-4xl text-[#6B1A1A]"
+                    className={`
+                      text-[#6B1A1A]
+                      leading-tight
+                      ${
+                        partner.name === "BMC"
+                          ? "text-4xl"
+                          : "text-3xl md:text-4xl"
+                      }
+                    `}
                     style={{ fontFamily: "var(--font-playfair)" }}
                   >
                     {partner.fullName}
                   </h3>
                 </div>
+
+                {/* Description */}
                 <p
-                  className="text-base md:text-lg text-[#6B1A1A]/85 leading-relaxed max-w-md"
+                  className="
+                    text-base
+                    md:text-lg
+                    text-[#6B1A1A]/85
+                    leading-relaxed
+                    max-w-sm
+                  "
                   style={{ fontFamily: "var(--font-montserrat)" }}
                 >
                   {partner.description}
                 </p>
+
+                {/* Bottom Accent */}
+                <div className="mt-auto pt-10">
+                  <div className="w-16 h-[2px] bg-[#E8A84C] rounded-full opacity-70 group-hover:w-24 transition-all duration-500" />
+                </div>
               </div>
             ))}
           </div>

@@ -119,7 +119,7 @@ export default function FindMyPaw() {
 
   return (
     <main
-      className="min-h-screen relative"
+      className="min-h-screen relative flex flex-col"
       style={{
         backgroundColor: "#E8A84C",
         backgroundImage: "url('/images/paw-pattern.jpg')",
@@ -129,11 +129,11 @@ export default function FindMyPaw() {
     >
       <div className="absolute inset-0 bg-[#E8A84C]/88 pointer-events-none" />
 
-      <div className="relative">
+      <div className="relative flex flex-col flex-1">
         <Header />
 
-        <section className="pt-32 pb-20 md:pt-40 md:pb-28 px-6">
-          <div className="max-w-3xl mx-auto">
+        <section className="pt-32 pb-20 md:pt-40 md:pb-28 px-6 flex-1 flex items-center">
+          <div className="max-w-3xl mx-auto w-full">
             {animalsLoading && <Loading text="Loading the pets..." />}
 
             {!animalsLoading && animalsError && (
@@ -210,10 +210,17 @@ function Landing({ onStart, disabled }) {
       <button
         onClick={onStart}
         disabled={disabled}
-        className="mt-4 px-12 py-4 bg-[#6B1A1A] text-white tracking-wider text-sm uppercase rounded-full hover:bg-[#8a2424] hover:scale-105 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+        className="group relative overflow-hidden mt-4 px-12 py-4 bg-[#6B1A1A] text-white tracking-wider text-sm uppercase rounded-full hover:bg-[#8a2424] hover:scale-105 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
         style={{ fontFamily: "var(--font-spartan)" }}
       >
-        {disabled ? "No pets available" : "Start Your Quiz"}
+        <span className="relative z-10">
+          {disabled ? "No pets available" : "Start Your Quiz"}
+        </span>
+        {/* Gold shimmer sweep — diagonal light bar sweeps across on hover */}
+        <span
+          className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-[#E8A84C]/70 to-transparent skew-x-[-20deg] -translate-x-full group-hover:translate-x-[400%] transition-transform duration-1000 ease-out"
+          aria-hidden="true"
+        />
       </button>
     </div>
   );
@@ -364,10 +371,15 @@ function Result({ animal, onAdopt, onTryAgain }) {
       <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
         <button
           onClick={onAdopt}
-          className="px-10 py-4 bg-[#6B1A1A] text-white tracking-wider text-sm uppercase rounded-full hover:bg-[#8a2424] hover:scale-105 transition-all duration-300 cursor-pointer"
+          className="group relative overflow-hidden px-10 py-4 bg-[#6B1A1A] text-white tracking-wider text-sm uppercase rounded-full hover:bg-[#8a2424] hover:scale-105 transition-all duration-300 cursor-pointer"
           style={{ fontFamily: "var(--font-spartan)" }}
         >
-          Adopt Me!
+          <span className="relative z-10">Adopt Me!</span>
+          {/* Gold shimmer sweep — diagonal light bar sweeps across on hover */}
+          <span
+            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-[#E8A84C]/70 to-transparent skew-x-[-20deg] -translate-x-full group-hover:translate-x-[400%] transition-transform duration-1000 ease-out"
+            aria-hidden="true"
+          />
         </button>
         <button
           onClick={onTryAgain}
