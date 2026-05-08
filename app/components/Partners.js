@@ -5,7 +5,7 @@ export default function Partners() {
       fullName: "Youth Organisation in Defence of Animals",
       logo: "/images/yoda-logo.png",
       description:
-        "Providing specialized medical oversight and rehabilitation for vulnerable street puppies across Mumbai.",
+        "Paw Forward is partnering with YODA to run an adoption campaign for their shelter animals and organise donation drives to support their operations.",
     },
 
     {
@@ -13,7 +13,7 @@ export default function Partners() {
       fullName: "Welfare of Stray Dogs",
       logo: "/images/wsd-logo.jpeg",
       description:
-        "Our primary partner for emergency field rescues and community-driven sterilization programs in the city.",
+        "Paw Forward is partnering with WSD to run an adoption campaign for their shelter animals and coordinate sterilisation drives across local communities.",
     },
 
     {
@@ -21,7 +21,7 @@ export default function Partners() {
       fullName: "Brihanmumbai Municipal Corporation",
       logo: "/images/bmc-logo.jpeg",
       description:
-        "Supporting large-scale city welfare, sterilisation awareness, and safer conditions for Mumbai’s street animals.",
+        "Supporting large-scale city welfare, sterilisation awareness, and safer conditions for Mumbai's street animals.",
     },
 
     {
@@ -52,7 +52,7 @@ export default function Partners() {
         <div className="bg-[#D89B9B] py-12 md:py-20 px-4">
           <h2
             className="text-center text-4xl md:text-6xl lg:text-7xl text-white drop-shadow-md"
-            style={{ fontFamily: "var(--font-playfair)" }}
+            style={{ fontFamily: "var(--font-spartan)" }}
           >
             Partnering with Purpose
           </h2>
@@ -131,7 +131,7 @@ export default function Partners() {
                           : "text-3xl md:text-4xl"
                       }
                     `}
-                    style={{ fontFamily: "var(--font-playfair)" }}
+                    style={{ fontFamily: "var(--font-spartan)" }}
                   >
                     {partner.fullName}
                   </h3>

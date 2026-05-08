@@ -17,100 +17,31 @@ export default function AdoptAPaw() {
 
   useEffect(() => {
     let cancelled = false;
-
     async function fetchPets() {
       try {
-        const yodaQuery = query(
-          collection(db, "dogs_yoda"),
-          orderBy("addedAt", "desc")
-        );
-
-        const wsdQuery = query(
-          collection(db, "dogs_wsd"),
-          orderBy("addedAt", "desc")
-        );
-
-        const [yodaSnap, wsdSnap] = await Promise.all([
-          getDocs(yodaQuery),
-          getDocs(wsdQuery),
-        ]);
-
+        const yodaQuery = query(collection(db, "dogs_yoda"), orderBy("addedAt", "desc"));
+        const wsdQuery  = query(collection(db, "dogs_wsd"),  orderBy("addedAt", "desc"));
+        const [yodaSnap, wsdSnap] = await Promise.all([getDocs(yodaQuery), getDocs(wsdQuery)]);
         if (cancelled) return;
-
-        setYodaPets(
-          yodaSnap.docs.map((d) => ({
-            id: d.id,
-            ...d.data(),
-          }))
-        );
-
-        setWsdPets(
-          wsdSnap.docs.map((d) => ({
-            id: d.id,
-            ...d.data(),
-          }))
-        );
+        setYodaPets(yodaSnap.docs.map((d) => ({ id: d.id, ...d.data() })));
+        setWsdPets(wsdSnap.docs.map((d) => ({ id: d.id, ...d.data() })));
       } catch (err) {
         console.error("Failed to load pets:", err);
-
-        if (!cancelled) {
-          setError("Couldn't load adoptable pets. Please refresh.");
-        }
+        if (!cancelled) setError("Couldn't load adoptable pets. Please refresh.");
       } finally {
         if (!cancelled) setLoading(false);
       }
     }
-
     fetchPets();
-
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, []);
 
   return (
     <main>
       <Header />
-
-      {/* Hero Section */}
-      <section
-        className="relative pt-40 pb-32 md:pt-52 md:pb-40 px-6 overflow-hidden"
-        style={{
-          backgroundColor: "#F3BEBE",
-          backgroundImage: "url('/images/dog-mouth-pattern.jpeg')",
-          backgroundRepeat: "repeat-x",
-          backgroundSize: "auto 75%",
-          backgroundPosition: "left center",
-        }}
-      >
-        <div className="absolute inset-0 bg-[#F3BEBE]/70" />
-
-        <div className="relative max-w-5xl mx-auto text-center space-y-8">
-          <h1
-            className="text-5xl md:text-7xl lg:text-8xl text-[#6B1A1A] leading-tight animate-hero-rise"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            Meet Mumbai&apos;s
-            <br />
-            Bravest Hearts
-          </h1>
-
-          <p
-            className="text-lg md:text-xl text-[#6B1A1A]/85 leading-relaxed max-w-3xl mx-auto animate-fade-in"
-            style={{
-              fontFamily: "var(--font-montserrat)",
-              animationDelay: "0.4s",
-              animationFillMode: "both",
-            }}
-          >
-            Every rescued paw here is waiting for warmth, care,
-            and a family to finally call their own.
-          </p>
-        </div>
-      </section>
-
-      {/* Main Content */}
+      <FindAFriendHero />
       <div
+        id="shelters"
         className="relative"
         style={{
           backgroundColor: "#FAF6EF",
@@ -120,156 +51,326 @@ export default function AdoptAPaw() {
         }}
       >
         <div className="absolute inset-0 bg-[#FAF6EF]/90 pointer-events-none" />
-
         <div className="relative">
           <ShelterSection
-            shelterId="yoda"
-            shelterName="YODA"
+            shelterId="yoda" shelterName="YODA"
             shelterTagline="Youth Organisation in Defence of Animals"
-            pets={yodaPets}
-            loading={loading}
-            error={error}
-            onAdopt={(pet) =>
-              setSelected({
-                dog: pet,
-                shelterId: "yoda",
-                shelterName: "YODA",
-              })
-            }
+            pets={yodaPets} loading={loading} error={error}
+            onAdopt={(pet) => setSelected({ dog: pet, shelterId: "yoda", shelterName: "YODA" })}
           />
-
           <ShelterSection
-            shelterId="wsd"
-            shelterName="WSD"
+            shelterId="wsd" shelterName="WSD"
             shelterTagline="Welfare of Stray Dogs"
-            pets={wsdPets}
-            loading={loading}
-            error={error}
-            onAdopt={(pet) =>
-              setSelected({
-                dog: pet,
-                shelterId: "wsd",
-                shelterName: "WSD",
-              })
-            }
+            pets={wsdPets} loading={loading} error={error}
+            onAdopt={(pet) => setSelected({ dog: pet, shelterId: "wsd", shelterName: "WSD" })}
           />
         </div>
       </div>
-
       <Closer />
       <Footer />
-
       {selected && (
         <AdoptModal
-          dog={selected.dog}
-          shelterId={selected.shelterId}
-          shelterName={selected.shelterName}
-          onClose={() => setSelected(null)}
+          dog={selected.dog} shelterId={selected.shelterId}
+          shelterName={selected.shelterName} onClose={() => setSelected(null)}
         />
       )}
     </main>
   );
 }
 
-function ShelterSection({
-  shelterName,
-  shelterTagline,
-  pets,
-  loading,
-  error,
-  onAdopt,
-}) {
-  return (
-    <section className="py-24 md:py-32 px-6">
-      <div className="max-w-[1600px] mx-auto">
-        {/* Heading */}
-        <div className="text-center mb-16 space-y-3">
-          <h2
-            className="text-5xl md:text-6xl lg:text-7xl text-[#6B1A1A]"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            {shelterName}
-          </h2>
+/* ─────────────────────────────────────────────────────────────
+   FIND A FRIEND HERO
+   • All blobs → single beige #F5E6D3 (matches dog image bg)
+   • Top row: each blob has different marginBottom so they sit
+     at different heights (not aligned to same baseline)
+   • Bottom row: each blob has different marginTop so they
+     hang at different depths below the center content
+───────────────────────────────────────────────────────────── */
+function FindAFriendHero() {
+  const scrollToShelters = () =>
+    document.getElementById("shelters")?.scrollIntoView({ behavior: "smooth" });
 
-          <p
-            className="text-xs md:text-sm tracking-[0.25em] uppercase text-[#6B1A1A]/70"
-            style={{ fontFamily: "var(--font-spartan)" }}
-          >
-            {shelterTagline}
-          </p>
+  return (
+    <section style={{ backgroundColor: "#FBE8E8", position: "relative" }}>
+      <style>{`
+        @keyframes blobFloat {
+          0%,100% { transform: translateY(0px);   }
+          50%      { transform: translateY(-11px); }
+        }
+        .pf-b1 { animation: blobFloat 3.8s ease-in-out infinite 0.0s; }
+        .pf-b2 { animation: blobFloat 4.3s ease-in-out infinite 0.7s; }
+        .pf-b3 { animation: blobFloat 3.5s ease-in-out infinite 1.2s; }
+        .pf-b4 { animation: blobFloat 4.6s ease-in-out infinite 0.4s; }
+        .pf-b5 { animation: blobFloat 3.9s ease-in-out infinite 1.0s; }
+        .pf-b6 { animation: blobFloat 4.1s ease-in-out infinite 1.6s; }
+      `}</style>
+
+      {/* ORGANIC LOOP SVG — full section width */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 1380 895"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      >
+        <path
+          d="M 318,328 C 258,300 138,295 62,330 C 14,352 4,408 4,462 C 4,516 24,568 82,600 C 148,630 295,640 518,636 C 718,632 938,624 1088,632 C 1228,638 1308,622 1340,592 C 1370,562 1372,510 1370,458 C 1368,406 1350,352 1302,326 C 1252,298 1158,292 1068,322 C 948,350 726,356 318,328 Z"
+          fill="none" stroke="#C4724A" strokeWidth="2" opacity="0.32"
+        />
+        <path
+          d="M 332,316 C 272,286 148,280 68,316 C 16,340 6,398 6,454 C 6,512 28,566 90,600 C 158,632 308,644 535,640 C 738,636 955,628 1102,636 C 1244,644 1326,626 1356,594 C 1382,562 1382,508 1380,452 C 1378,396 1358,340 1308,312 C 1256,282 1162,276 1072,308 C 950,338 738,344 332,316 Z"
+          fill="none" stroke="#C4724A" strokeWidth="1.7" opacity="0.20"
+        />
+        <path
+          d="M 308,340 C 248,312 124,308 50,342 C 2,366 -6,422 -4,478 C -2,534 20,586 80,618 C 148,648 298,658 522,654 C 724,650 942,642 1092,650 C 1234,656 1316,640 1346,610 C 1374,580 1374,526 1372,472 C 1370,418 1352,362 1302,334 C 1250,304 1155,298 1065,330 C 944,360 730,366 308,340 Z"
+          fill="none" stroke="#C4724A" strokeWidth="1.5" opacity="0.15"
+        />
+      </svg>
+
+      <div
+        className="max-w-[1380px] mx-auto px-6"
+        style={{ paddingTop: "140px", position: "relative", zIndex: 2 }}
+      >
+
+        {/* ── TOP ROW ──
+            Each blob has a different marginBottom so they sit
+            at genuinely different heights — not baseline-aligned.
+            Dog1: mb=0   (sits lowest)
+            Dog2: mb=40  (sits highest, most elevated)
+            Dog3: mb=18  (sits in between)
+        */}
+        <div className="flex items-end" style={{ justifyContent: "space-between" }}>
+
+          {/* Dog 1 — left, lowest */}
+          {/* Dog 1 — left */}
+<div className="pf-b1" style={{ marginBottom: "0px", marginLeft: "-30px" }}>
+  <Blob img="/images/friend-dog-1.png" alt="Dog 1" color="#F0E4B8"
+    w={200} h={186} shape="42% 58% 54% 46% / 46% 40% 60% 54%" />
+</div>
+
+{/* Dog 2 — center */}
+<div className="pf-b2 hidden md:block" style={{ marginBottom: "70px" }}>
+  <Blob img="/images/friend-dog-2.png" alt="Dog 2" color="#C8CFA8"
+    w={228} h={210} shape="52% 48% 42% 58% / 40% 56% 44% 60%" />
+</div>
+
+{/* Dog 3 — right */}
+<div className="pf-b3" style={{ marginBottom: "15px", marginRight: "-20px" }}>
+  <Blob img="/images/friend-dog-3.png" alt="Dog 3" color="#E8C898"
+    w={215} h={195} shape="56% 44% 40% 60% / 52% 46% 54% 48%" />
+</div>
         </div>
 
-        {/* Loading */}
+        {/* ── CENTER TEXT ── */}
+        <div
+          className="flex flex-col items-center text-center"
+          style={{ marginTop: "-80px", marginBottom: "-20px", padding: "28px 40px 24px" }}
+        >
+          <h1
+            className="text-[#6B1A1A] leading-none"
+            style={{
+              fontFamily: "var(--font-spartan)",
+              fontSize: "clamp(54px, 7.8vw, 108px)",
+              marginBottom: "20px",
+            }}
+          >
+            Find a Friend
+          </h1>
+
+          <p
+            className="text-[#6B1A1A]/70 leading-relaxed"
+            style={{
+              fontFamily: "var(--font-montserrat)",
+              fontSize: "clamp(12px, 0.95vw, 14px)",
+              maxWidth: "260px",
+              marginBottom: "16px",
+            }}
+          >
+            Every rescued paw here is waiting for warmth, care,
+            and a family to finally call their own.
+          </p>
+
+          <button
+            onClick={scrollToShelters}
+            className="group relative overflow-hidden px-9 py-3 bg-[#6B1A1A] text-white text-xs tracking-[0.22em] uppercase rounded-full hover:bg-[#8E2323] hover:scale-[1.03] transition-all duration-300 cursor-pointer"
+            style={{ fontFamily: "var(--font-spartan)" }}
+          >
+            <span className="relative z-10">Meet Them All</span>
+            <span className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-[#E8A84C]/70 to-transparent skew-x-[-20deg] -translate-x-full group-hover:translate-x-[420%] transition-transform duration-1000 ease-out" />
+          </button>
+        </div>
+
+        {/* ── BOTTOM ROW ──
+            Each blob has a different marginTop so they hang
+            at different depths — not top-aligned.
+            Dog4: mt=0   (sits highest, closest to center)
+            Dog5: mt=30  (hangs lowest)
+            Dog6: mt=12  (hangs in between)
+        */}
+        <div className="flex items-start"
+  style={{ justifyContent: "space-between", paddingBottom: "52px", paddingLeft: "80px", paddingRight: "60px" }}>
+
+          {/* Dog 4 — left, highest */}
+          {/* Dog 4 — left */}
+<div className="pf-b4" style={{ marginTop: "25px" }}>
+  <Blob img="/images/friend-dog-4.png" alt="Dog 4" color="#F4C8C8"
+    w={238} h={198} shape="58% 42% 46% 54% / 50% 60% 40% 50%" />
+</div>
+
+{/* Dog 5 — center */}
+<div className="pf-b5 hidden md:block" style={{ marginTop: "0px" }}>
+  <Blob img="/images/friend-dog-5.png" alt="Dog 5" color="#D8D8F0"
+    w={218} h={204} shape="48% 52% 56% 44% / 42% 50% 50% 58%" />
+</div>
+
+{/* Dog 6 — right */}
+<div className="pf-b6" style={{ marginTop: "40px" }}>
+  <Blob img="/images/friend-dog-6.png" alt="Dog 6" color="#F4C8D8"
+    w={180} h={214} shape="44% 56% 52% 48% / 56% 44% 52% 48%" />
+</div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BLOB — single beige color for all blobs
+   #F5E6D3 is a warm beige that matches cartoon dog backgrounds
+   so the image background and blob background look the same.
+───────────────────────────────────────────────────────────── */
+function Blob({ img, alt, w, h, shape }) {
+  return (
+    <div style={{
+      width: `${w}px`, height: `${h}px`,
+      backgroundColor: "#F0E6D3",
+      borderRadius: shape,
+      overflow: "hidden",
+      position: "relative",
+      flexShrink: 0,
+    }}>
+      <img src={img} alt={alt} style={{
+        position: "absolute",
+        inset: "8px",
+        width: "calc(100% - 16px)",
+        height: "calc(100% - 16px)",
+        objectFit: "contain",
+      }} />
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SHELTER SECTION
+───────────────────────────────────────────────────────────── */
+function ShelterSection({ shelterName, shelterTagline, pets, loading, error, onAdopt }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const visibleCards = 4;
+  const maxIndex = Math.max(0, pets.length - visibleCards);
+
+  return (
+    <section className="py-24 md:py-32 px-6 overflow-hidden">
+      <div className="max-w-[1700px] mx-auto">
+
+        <div className="text-center mb-16 space-y-3">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl text-[#6B1A1A]"
+            style={{ fontFamily: "var(--font-spartan)" }}>{shelterName}</h2>
+          <p className="text-xs md:text-sm tracking-[0.25em] uppercase text-[#6B1A1A]/70"
+            style={{ fontFamily: "var(--font-spartan)" }}>{shelterTagline}</p>
+        </div>
+
         {loading && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[1, 2, 3, 4].map((i) => (
-              <PetCardSkeleton key={i} />
-            ))}
+            {[1,2,3,4].map((i) => <PetCardSkeleton key={i} />)}
           </div>
         )}
-
-        {/* Error */}
         {!loading && error && (
-          <p
-            className="text-center text-[#6B1A1A]/80"
-            style={{ fontFamily: "var(--font-montserrat)" }}
-          >
-            {error}
-          </p>
+          <p className="text-center text-[#6B1A1A]/80"
+            style={{ fontFamily: "var(--font-montserrat)" }}>{error}</p>
         )}
-
-        {/* Empty */}
         {!loading && !error && pets.length === 0 && (
-          <p
-            className="text-center italic text-[#6B1A1A]/70"
-            style={{ fontFamily: "var(--font-montserrat)" }}
-          >
+          <p className="text-center italic text-[#6B1A1A]/70"
+            style={{ fontFamily: "var(--font-montserrat)" }}>
             No pets currently listed from {shelterName}.
           </p>
         )}
 
-        {/* Cards */}
         {!loading && !error && pets.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {pets.map((pet) => (
-              <article
-                key={pet.id}
-                className="group bg-white rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.08)] hover:-translate-y-3 hover:shadow-[0_25px_60px_rgba(107,26,26,0.18)] transition-all duration-500"
+          <div className="relative">
+
+            {currentIndex > 0 && (
+              <button
+                onClick={() => setCurrentIndex(i => i - 1)}
+                className="absolute left-[-22px] top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-white shadow-xl border border-[#6B1A1A]/10 flex items-center justify-center hover:scale-110 hover:bg-[#6B1A1A] hover:text-white transition-all duration-300"
               >
-                {/* Image */}
-                <div className="relative h-[380px] overflow-hidden bg-[#FAF6EF]">
-                  <img
-                    src={pet.image}
-                    alt={pet.name}
-                    className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700 ease-out"
-                  />
+                <span className="text-2xl">‹</span>
+              </button>
+            )}
 
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#6B1A1A]/70 via-[#6B1A1A]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
+            {currentIndex < maxIndex && (
+              <button
+                onClick={() => setCurrentIndex(i => i + 1)}
+                className="absolute right-[-22px] top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-white shadow-xl border border-[#6B1A1A]/10 flex items-center justify-center hover:scale-110 hover:bg-[#6B1A1A] hover:text-white transition-all duration-300"
+              >
+                <span className="text-2xl">›</span>
+              </button>
+            )}
 
-                {/* Content */}
-                <div className="p-7 space-y-5">
-                  <h3
-                    className="text-4xl text-[#6B1A1A] text-center"
-                    style={{ fontFamily: "var(--font-playfair)" }}
-                  >
-                    {pet.name}
-                  </h3>
-
-                  <button
+            <div className="overflow-hidden">
+              <div
+                className="flex gap-8 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                style={{
+                  transform: `translateX(calc(-${currentIndex * 25}% - ${currentIndex * 8}px))`,
+                }}
+              >
+                {pets.map((pet) => (
+                  <article
+                    key={pet.id}
+                    className="flex-shrink-0 w-[calc(25%-24px)] bg-white rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.08)] hover:-translate-y-3 hover:shadow-[0_25px_60px_rgba(107,26,26,0.18)] transition-all duration-500 cursor-pointer"
                     onClick={() => onAdopt(pet)}
-                    className="relative overflow-hidden w-full py-3.5 bg-[#6B1A1A] text-white tracking-[0.18em] text-sm uppercase rounded-full hover:bg-[#8E2323] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
-                    style={{ fontFamily: "var(--font-spartan)" }}
                   >
-                    <span className="relative z-10">Adopt Me!</span>
+                    <div className="relative h-[380px] overflow-hidden bg-[#FAF6EF]">
+                      <img src={pet.image} alt={pet.name}
+                        className="absolute inset-0 w-full h-full object-cover object-top hover:scale-110 transition-transform duration-700 ease-out" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#6B1A1A]/70 via-[#6B1A1A]/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                    </div>
+                    <div className="p-7 space-y-5">
+                      <h3 className="text-4xl text-[#6B1A1A] text-center"
+                        style={{ fontFamily: "var(--font-spartan)" }}>{pet.name}</h3>
+                      <button
+                        className="group relative overflow-hidden w-full py-3.5 bg-[#6B1A1A] text-white tracking-[0.18em] text-sm uppercase rounded-full hover:bg-[#8E2323] hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+                        style={{ fontFamily: "var(--font-spartan)" }}
+                      >
+                        <span className="relative z-10">Adopt Me!</span>
+                        <span className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-[#E8A84C]/70 to-transparent skew-x-[-20deg] -translate-x-full group-hover:translate-x-[420%] transition-transform duration-1000 ease-out" />
+                      </button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
 
-                    {/* Gold Sweep */}
-                    <span className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-[#E8A84C]/70 to-transparent skew-x-[-20deg] -translate-x-full group-hover:translate-x-[420%] transition-transform duration-1000 ease-out" />
-                  </button>
-                </div>
-              </article>
-            ))}
+            {pets.length > visibleCards && (
+              <div className="flex justify-center mt-10 gap-3">
+                {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentIndex(i)}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                      currentIndex === i ? "w-10 bg-[#6B1A1A]" : "w-2.5 bg-[#6B1A1A]/20"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -281,10 +382,8 @@ function PetCardSkeleton() {
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)] animate-pulse">
       <div className="h-[380px] bg-[#6B1A1A]/10" />
-
       <div className="p-7 space-y-5">
         <div className="h-8 bg-[#6B1A1A]/10 rounded-full w-2/3 mx-auto" />
-
         <div className="h-12 bg-[#6B1A1A]/10 rounded-full" />
       </div>
     </div>

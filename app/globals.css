@@ -13,7 +13,7 @@
 @theme inline {
   --color-background: var(--color-cream);
   --color-foreground: var(--color-maroon);
-  --font-display: var(--font-playfair);
+  --font-display: var(--font-spartan);
   --font-subhead: var(--font-spartan);
   --font-body: var(--font-montserrat);
 }

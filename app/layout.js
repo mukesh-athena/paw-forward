@@ -2,7 +2,7 @@ import { Playfair_Display, League_Spartan, Montserrat } from "next/font/google";
 import "./globals.css";
 
 const playfair = Playfair_Display({
-  variable: "--font-playfair",
+  variable: "--font-spartan",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });

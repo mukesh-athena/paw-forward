@@ -51,7 +51,7 @@ export default function AdminPage() {
               <div className="text-5xl">🔒</div>
               <h1
                 className="text-3xl md:text-4xl text-[#6B1A1A]"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                style={{ fontFamily: "var(--font-spartan)" }}
               >
                 Admin Access
               </h1>
@@ -116,7 +116,7 @@ export default function AdminPage() {
             <div>
               <h1
                 className="text-4xl md:text-5xl text-[#6B1A1A]"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                style={{ fontFamily: "var(--font-spartan)" }}
               >
                 Admin Dashboard
               </h1>

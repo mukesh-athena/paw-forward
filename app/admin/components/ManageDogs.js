@@ -366,7 +366,7 @@ export default function ManageDogs() {
                 </div>
                 <div className="p-4 space-y-3">
                   <div>
-                    <h3 className="text-xl text-[#6B1A1A]" style={{ fontFamily: "var(--font-playfair)" }}>
+                    <h3 className="text-xl text-[#6B1A1A]" style={{ fontFamily: "var(--font-spartan)" }}>
                       {dog.name}
                     </h3>
                     {dog.type && (
@@ -421,7 +421,7 @@ export default function ManageDogs() {
             </button>
 
             <div className="p-8 md:p-10">
-              <h3 className="text-2xl md:text-3xl text-[#6B1A1A] mb-2" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h3 className="text-2xl md:text-3xl text-[#6B1A1A] mb-2" style={{ fontFamily: "var(--font-spartan)" }}>
                 {editingId ? "Edit Pet" : "Add a New Pet"}
               </h3>
               <p className="text-sm text-[#6B1A1A]/70 mb-6" style={{ fontFamily: "var(--font-montserrat)" }}>
@@ -568,7 +568,7 @@ export default function ManageDogs() {
             className="relative w-full max-w-md bg-[#FAF6EF] rounded-2xl shadow-2xl p-8 text-center"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-2xl text-[#6B1A1A] mb-3" style={{ fontFamily: "var(--font-playfair)" }}>
+            <h3 className="text-2xl text-[#6B1A1A] mb-3" style={{ fontFamily: "var(--font-spartan)" }}>
               Delete this pet?
             </h3>
             <p className="text-sm text-[#6B1A1A]/75 mb-6" style={{ fontFamily: "var(--font-montserrat)" }}>

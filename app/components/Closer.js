@@ -64,7 +64,7 @@ export default function Closer() {
       <div className="relative z-10 flex h-full items-center justify-center px-6">
         <h2
           className="text-center text-4xl md:text-6xl lg:text-7xl text-white drop-shadow-lg max-w-4xl leading-tight"
-          style={{ fontFamily: "var(--font-playfair)" }}
+          style={{ fontFamily: "var(--font-spartan)" }}
           aria-label={tagline}
         >
           {tagline.split("").map((char, i) => (

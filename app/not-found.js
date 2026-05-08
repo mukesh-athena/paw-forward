@@ -24,14 +24,14 @@ export default function NotFound() {
 
             <h1
               className="text-7xl md:text-8xl lg:text-9xl text-[#6B1A1A] leading-none"
-              style={{ fontFamily: "var(--font-playfair)" }}
+              style={{ fontFamily: "var(--font-spartan)" }}
             >
               404
             </h1>
 
             <h2
               className="text-3xl md:text-4xl text-[#6B1A1A] leading-tight"
-              style={{ fontFamily: "var(--font-playfair)" }}
+              style={{ fontFamily: "var(--font-spartan)" }}
             >
               This pup wandered off
             </h2>

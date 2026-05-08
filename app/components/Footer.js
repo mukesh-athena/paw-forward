@@ -43,7 +43,7 @@ export default function Footer() {
               </svg>
             </a>
           </div>
-          <div className="text-center md:text-right space-y-1.5 text-[#6B1A1A]" style={{ fontFamily: "var(--font-playfair)" }}>
+          <div className="text-center md:text-right space-y-1.5 text-[#6B1A1A]" style={{ fontFamily: "var(--font-spartan)" }}>
             <p className="text-base md:text-lg">Mumbai, India</p>
             <a href="mailto:hello@pawforward.org" className="text-base md:text-lg hover:text-[#E8A84C] transition-colors duration-300 inline-block">hello@pawforward.org</a>
           </div>

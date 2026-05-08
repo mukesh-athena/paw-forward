@@ -70,7 +70,7 @@ export default function ContactMessages() {
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <h4
                     className="text-lg text-[#6B1A1A]"
-                    style={{ fontFamily: "var(--font-playfair)" }}
+                    style={{ fontFamily: "var(--font-spartan)" }}
                   >
                     {[msg.firstName, msg.lastName].filter(Boolean).join(" ") || "(no name)"}
                   </h4>
@@ -184,7 +184,7 @@ function DeleteModal({ itemLabel, onCancel, onConfirm }) {
       >
         <h3
           className="text-2xl text-[#6B1A1A] mb-3"
-          style={{ fontFamily: "var(--font-playfair)" }}
+          style={{ fontFamily: "var(--font-spartan)" }}
         >
           Delete {itemLabel}?
         </h3>

@@ -96,7 +96,7 @@ export default function AdoptionRequests() {
                   <div>
                     <h4
                       className="text-lg text-[#6B1A1A]"
-                      style={{ fontFamily: "var(--font-playfair)" }}
+                      style={{ fontFamily: "var(--font-spartan)" }}
                     >
                       {req.name || "(no name)"}
                     </h4>
@@ -218,7 +218,7 @@ function DeleteModal({ itemLabel, onCancel, onConfirm }) {
       >
         <h3
           className="text-2xl text-[#6B1A1A] mb-3"
-          style={{ fontFamily: "var(--font-playfair)" }}
+          style={{ fontFamily: "var(--font-spartan)" }}
         >
           Delete {itemLabel}?
         </h3>

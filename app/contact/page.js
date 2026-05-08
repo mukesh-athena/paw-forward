@@ -79,7 +79,7 @@ export default function ContactUs() {
   };
 
   const pageBg = {
-    backgroundColor: "#F3BEBE",
+    backgroundColor: "#E8A84C",
     backgroundImage: "url('/images/paw-pattern.jpg')",
     backgroundRepeat: "repeat",
     backgroundSize: "300px",
@@ -88,7 +88,7 @@ export default function ContactUs() {
   if (status === "success") {
     return (
       <main className="min-h-screen relative" style={pageBg}>
-        <div className="absolute inset-0 bg-[#F3BEBE]/85 pointer-events-none" />
+        <div className="absolute inset-0 bg-[#E8A84C]/88 pointer-events-none" />
 
         <div className="relative">
           <Header />
@@ -102,13 +102,13 @@ export default function ContactUs() {
 
               <h1
                 className="text-4xl md:text-5xl lg:text-6xl text-[#6B1A1A] leading-tight"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                style={{ fontFamily: "var(--font-spartan)" }}
               >
                 Thanks for reaching out!
               </h1>
 
               <p
-                className="text-base md:text-lg text-[#6B1A1A]/85 leading-relaxed max-w-lg mx-auto"
+                className="text-base md:text-lg text-[#6B1A1A]/90 leading-relaxed max-w-lg mx-auto"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 We&apos;ll get back to you soon.
@@ -143,7 +143,7 @@ export default function ContactUs() {
 
   return (
     <main className="min-h-screen relative" style={pageBg}>
-      <div className="absolute inset-0 bg-[#F3BEBE]/85 pointer-events-none" />
+      <div className="absolute inset-0 bg-[#E8A84C]/88 pointer-events-none" />
 
       <div className="relative">
         <Header />
@@ -156,7 +156,7 @@ export default function ContactUs() {
             <div className="space-y-10 md:pt-4">
 
               <p
-                className="text-sm tracking-[0.25em] text-[#6B1A1A] uppercase"
+                className="text-sm tracking-[0.25em] text-[#6B1A1A]/80 uppercase font-semibold"
                 style={{ fontFamily: "var(--font-spartan)" }}
               >
                 — Get in Touch
@@ -164,7 +164,7 @@ export default function ContactUs() {
 
               <h1
                 className="text-5xl md:text-6xl lg:text-7xl text-[#6B1A1A] leading-[1.05]"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                style={{ fontFamily: "var(--font-spartan)" }}
               >
                 Let&apos;s Talk
                 <br />
@@ -172,7 +172,7 @@ export default function ContactUs() {
               </h1>
 
               <p
-                className="text-base md:text-lg text-[#6B1A1A]/85 leading-relaxed max-w-md"
+                className="text-base md:text-lg text-[#6B1A1A]/90 leading-relaxed max-w-md"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 Whether you want to volunteer, partner with us, or simply learn
@@ -203,7 +203,7 @@ export default function ContactUs() {
               className="
                 relative
                 overflow-hidden
-                bg-white/70
+                bg-white/75
                 backdrop-blur-xl
                 border
                 border-white/60
@@ -216,7 +216,7 @@ export default function ContactUs() {
             >
 
               {/* GLOW EFFECTS */}
-              <div className="absolute top-0 right-0 w-40 h-40 bg-[#E8A84C]/10 blur-3xl rounded-full pointer-events-none" />
+              <div className="absolute top-0 right-0 w-40 h-40 bg-[#6B1A1A]/10 blur-3xl rounded-full pointer-events-none" />
 
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#6B1A1A]/10 blur-3xl rounded-full pointer-events-none" />
 
@@ -345,14 +345,14 @@ function InfoBlock({ label, children }) {
     <div>
 
       <p
-        className="text-sm tracking-[0.2em] text-[#E8A84C] uppercase mb-1.5 font-semibold"
+        className="text-sm tracking-[0.2em] text-[#6B1A1A] uppercase mb-1.5 font-bold"
         style={{ fontFamily: "var(--font-spartan)" }}
       >
         {label}
       </p>
 
       <p
-        className="text-base md:text-lg text-[#6B1A1A]/90"
+        className="text-base md:text-lg text-[#6B1A1A]/95"
         style={{ fontFamily: "var(--font-montserrat)" }}
       >
         {children}
@@ -374,7 +374,7 @@ function Field({
     <label className="block">
 
       <span
-        className="block text-xs tracking-[0.22em] text-[#6B1A1A]/65 uppercase mb-3"
+        className="block text-xs tracking-[0.22em] text-[#6B1A1A]/70 uppercase mb-3 font-semibold"
         style={{ fontFamily: "var(--font-spartan)" }}
       >
         {label}
@@ -391,14 +391,14 @@ function Field({
           px-6
           py-4
           rounded-2xl
-          bg-white/85
+          bg-white/90
           border
           border-[#6B1A1A]/10
           text-[#6B1A1A]
-          placeholder:text-[#6B1A1A]/35
+          placeholder:text-[#6B1A1A]/40
           focus:outline-none
-          focus:border-[#E8A84C]
-          focus:shadow-[0_0_0_4px_rgba(232,168,76,0.15)]
+          focus:border-[#6B1A1A]
+          focus:shadow-[0_0_0_4px_rgba(107,26,26,0.10)]
           hover:border-[#6B1A1A]/25
           transition-all
           duration-300
@@ -421,7 +421,7 @@ function TextareaField({
     <label className="block">
 
       <span
-        className="block text-xs tracking-[0.22em] text-[#6B1A1A]/65 uppercase mb-3"
+        className="block text-xs tracking-[0.22em] text-[#6B1A1A]/70 uppercase mb-3 font-semibold"
         style={{ fontFamily: "var(--font-spartan)" }}
       >
         {label}
@@ -438,14 +438,14 @@ function TextareaField({
           px-6
           py-5
           rounded-[2rem]
-          bg-white/85
+          bg-white/90
           border
           border-[#6B1A1A]/10
           text-[#6B1A1A]
-          placeholder:text-[#6B1A1A]/35
+          placeholder:text-[#6B1A1A]/40
           focus:outline-none
-          focus:border-[#E8A84C]
-          focus:shadow-[0_0_0_4px_rgba(232,168,76,0.15)]
+          focus:border-[#6B1A1A]
+          focus:shadow-[0_0_0_4px_rgba(107,26,26,0.10)]
           hover:border-[#6B1A1A]/25
           transition-all
           duration-300

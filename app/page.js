@@ -23,7 +23,7 @@ export default function Home() {
         <div className="relative z-10 flex h-full items-center justify-center px-4">
           <h1
             className="text-center text-5xl md:text-7xl lg:text-8xl text-white drop-shadow-lg"
-            style={{ fontFamily: "var(--font-playfair)" }}
+            style={{ fontFamily: "var(--font-spartan)" }}
           >
             From Street to Safety to Home
           </h1>
@@ -42,7 +42,7 @@ export default function Home() {
             </p>
             <h2
               className="text-5xl md:text-6xl lg:text-7xl text-[#6B1A1A] leading-tight"
-              style={{ fontFamily: "var(--font-playfair)" }}
+              style={{ fontFamily: "var(--font-spartan)" }}
             >
               Every Stray Has a Story
             </h2>

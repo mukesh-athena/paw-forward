@@ -36,6 +36,9 @@ export default function ReportStrays() {
 
     if (!/^https?:\/\/.+/i.test(formData.location.trim()))
       return "Please enter a valid maps link.";
+    
+    if (!formData.phone.trim())
+      return "Please enter your phone number.";
 
     if (
       formData.email &&
@@ -96,7 +99,7 @@ export default function ReportStrays() {
 
               <h1
                 className="text-5xl md:text-6xl text-[#6B1A1A] mb-6"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                style={{ fontFamily: "var(--font-spartan)" }}
               >
                 Report Submitted
               </h1>
@@ -158,7 +161,7 @@ export default function ReportStrays() {
 
                 <h1
                   className="text-5xl md:text-7xl leading-[0.95] text-[#6B1A1A]"
-                  style={{ fontFamily: "var(--font-playfair)" }}
+                  style={{ fontFamily: "var(--font-spartan)" }}
                 >
                   Help Protect
                   <br />
@@ -230,7 +233,7 @@ export default function ReportStrays() {
 
                 <h2
                   className="text-4xl md:text-5xl text-[#6B1A1A]"
-                  style={{ fontFamily: "var(--font-playfair)" }}
+                  style={{ fontFamily: "var(--font-spartan)" }}
                 >
                   Submit a Report
                 </h2>
@@ -305,19 +308,20 @@ export default function ReportStrays() {
                     />
 
                     <Field
-                      label="Phone"
+                      label="Phone *"
                       name="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="+91..."
+                      required
                     />
                   </div>
 
                   <div className="mt-auto bg-[#FAF6EF] border border-[#6B1A1A]/10 rounded-[2rem] p-6">
                     <h3
                       className="text-xl text-[#6B1A1A] mb-3"
-                      style={{ fontFamily: "var(--font-playfair)" }}
+                      style={{ fontFamily: "var(--font-spartan)" }}
                     >
                       Why detailed reports matter
                     </h3>
@@ -383,7 +387,7 @@ function InfoCard({ emoji, title, text }) {
 
       <h3
         className="text-xl text-[#6B1A1A] mb-2"
-        style={{ fontFamily: "var(--font-playfair)" }}
+        style={{ fontFamily: "var(--font-spartan)" }}
       >
         {title}
       </h3>

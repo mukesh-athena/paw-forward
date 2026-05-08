@@ -86,7 +86,7 @@ export default function Header({ transparentOnTop = false }) {
                       : "text-white border-transparent hover:bg-white hover:text-[#6B1A1A]"
                   }`}
                   style={{
-                    fontFamily: "var(--font-playfair)",
+                    fontFamily: "var(--font-spartan)",
                   }}
                 >
                   {link.label}
@@ -159,7 +159,7 @@ export default function Header({ transparentOnTop = false }) {
                         : "text-[#6B1A1A] hover:bg-[#6B1A1A] hover:text-white"
                     }`}
                     style={{
-                      fontFamily: "var(--font-playfair)",
+                      fontFamily: "var(--font-spartan)",
                     }}
                   >
                     {link.label}
