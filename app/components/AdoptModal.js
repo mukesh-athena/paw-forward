@@ -283,7 +283,7 @@ export default function AdoptModal({
       ? "Sending..."
       : "Submit Adoption Request"}
   </span>
-  <span className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-[#E8A84C]/70 to-transparent skew-x-[-20deg] -translate-x-full group-hover:translate-x-[420%] transition-transform duration-1000 ease-out" />
+  <span className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-[#E8A84C]/70 to-transparent skew-x-[-20deg] -translate-x-full group-hover:translate-x-[420%] group-active:translate-x-[420%] transition-transform duration-1000 ease-out" />
 </button>
           </form>
         )}

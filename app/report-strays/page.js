@@ -179,25 +179,7 @@ export default function ReportStrays() {
                 </p>
               </div>
 
-              <div className="grid sm:grid-cols-3 gap-4 pt-4">
-                <InfoCard
-                  emoji="🐾"
-                  title="Humane"
-                  text="Focused on safe sterilisation support."
-                />
-
-                <InfoCard
-                  emoji="📍"
-                  title="Mumbai Wide"
-                  text="Reports across the city are reviewed."
-                />
-
-                <InfoCard
-                  emoji="⚡"
-                  title="Faster Response"
-                  text="Detailed reports help rescuers quicker."
-                />
-              </div>
+              
             </div>
 
             {/* IMAGE */}

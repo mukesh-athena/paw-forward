@@ -78,17 +78,17 @@ export default function ContactUs() {
     }
   };
 
-  const pageBg = {
-    backgroundColor: "#E8A84C",
-    backgroundImage: "url('/images/paw-pattern.jpg')",
-    backgroundRepeat: "repeat",
-    backgroundSize: "300px",
-  };
+ const pageBg = {
+  backgroundColor: "#F3BEBE",
+  backgroundImage: "url('/images/paw-pattern.jpg')",
+  backgroundRepeat: "repeat",
+  backgroundSize: "300px",
+};
 
   if (status === "success") {
     return (
       <main className="min-h-screen relative" style={pageBg}>
-        <div className="absolute inset-0 bg-[#E8A84C]/88 pointer-events-none" />
+        <div className="absolute inset-0 bg-[#F3BEBE]/75 pointer-events-none" />
 
         <div className="relative">
           <Header />
@@ -143,7 +143,7 @@ export default function ContactUs() {
 
   return (
     <main className="min-h-screen relative" style={pageBg}>
-      <div className="absolute inset-0 bg-[#E8A84C]/88 pointer-events-none" />
+      <div className="absolute inset-0 bg-[#F3BEBE]/75 pointer-events-none" />
 
       <div className="relative">
         <Header />
@@ -320,7 +320,7 @@ export default function ContactUs() {
                     via-[#E8A84C]/70
                     to-transparent
                     skew-x-[-20deg]
-                    group-hover:translate-x-[420%]
+                    group-hover:translate-x-[420%] group-active:translate-x-[420%]
                     transition-transform
                     duration-1000
                     ease-out
