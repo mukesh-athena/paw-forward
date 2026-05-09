@@ -3,12 +3,16 @@ export default function Footer() {
     <footer className="bg-[#FAF6EF]">
       <div className="max-w-7xl mx-auto px-6 py-6 md:py-8">
         <div className="grid md:grid-cols-3 gap-6 md:gap-6 items-center">
+
+          {/* Logo */}
           <div className="flex justify-center md:justify-start">
             <img src="/images/paw-logo.png" alt="Paw Forward" className="w-20 h-20 object-contain" />
           </div>
-          <div className="flex justify-center gap-6">
+
+          {/* Instagram only + handle */}
+          <div className="flex justify-center items-center gap-3">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/projectpawforward"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -21,38 +25,39 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://facebook.com"
+              href="https://www.instagram.com/projectpawforward"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="text-[#6B1A1A] hover:text-[#E8A84C] hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+              className="text-sm text-[#6B1A1A] hover:text-[#E8A84C] transition-colors duration-300"
+              style={{ fontFamily: "var(--font-spartan)" }}
             >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-              </svg>
-            </a>
-            <a
-              href="https://x.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="X (Twitter)"
-              className="text-[#6B1A1A] hover:text-[#E8A84C] hover:scale-110 hover:-translate-y-1 transition-all duration-300"
-            >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-              </svg>
+              @projectpawforward
             </a>
           </div>
+
+          {/* Contact info */}
           <div className="text-center md:text-right space-y-1.5 text-[#6B1A1A]" style={{ fontFamily: "var(--font-spartan)" }}>
             <p className="text-base md:text-lg">Mumbai, India</p>
-            <a href="mailto:hello@pawforward.org" className="text-base md:text-lg hover:text-[#E8A84C] transition-colors duration-300 inline-block">hello@pawforward.org</a>
+            <a
+              href="mailto:vipanshiagarwal08@gmail.com"
+              className="text-base md:text-lg hover:text-[#E8A84C] transition-colors duration-300 inline-block"
+            >
+              vipanshiagarwal08@gmail.com
+            </a>
           </div>
+
         </div>
       </div>
+
       {/* Maroon divider line */}
       <div className="border-t-2 border-[#6B1A1A]">
         <div className="max-w-7xl mx-auto px-6 py-3">
-          <p className="text-center text-xs tracking-wider text-[#6B1A1A]" style={{ fontFamily: "var(--font-spartan)", letterSpacing: "0.15em" }}>© 2026 PAW FORWARD. ALL RIGHTS RESERVED.</p>
+          <p
+            className="text-center text-xs tracking-wider text-[#6B1A1A]"
+            style={{ fontFamily: "var(--font-spartan)", letterSpacing: "0.15em" }}
+          >
+            © 2026 PAW FORWARD. ALL RIGHTS RESERVED.
+          </p>
         </div>
       </div>
     </footer>
