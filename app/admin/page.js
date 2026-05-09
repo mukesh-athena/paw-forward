@@ -9,7 +9,7 @@ import StrayReports from "./components/StrayReports";
 import ContactMessages from "./components/ContactMessages";
 
 // Simple shared password. Vipanshi can change this in code later if needed.
-const ADMIN_PASSWORD = "pawforward2026";
+const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "pawforward2026";
 const SESSION_KEY = "paw_admin_authed";
 
 export default function AdminPage() {
