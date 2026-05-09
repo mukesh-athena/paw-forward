@@ -163,19 +163,14 @@ export default function ReportStrays() {
                   className="text-5xl md:text-7xl leading-[0.95] text-[#6B1A1A]"
                   style={{ fontFamily: "var(--font-spartan)" }}
                 >
-                  Help Protect
-                  <br />
-                  Mumbai&apos;s
-                  <br />
-                  Street Dogs
+                  Report an Unsterilised Stray in Mumbai
                 </h1>
 
                 <p
                   className="text-lg md:text-xl text-[#6B1A1A]/75 leading-relaxed max-w-xl"
                   style={{ fontFamily: "var(--font-montserrat)" }}
                 >
-                  Report unsterilised strays so rescue partners can respond
-                  faster and help control the population humanely.
+                  Spotted an unsterilised stray in your area? Submit a report and we&apos;ll coordinate with our shelter partners to send a sterilisation team.
                 </p>
               </div>
 
@@ -225,8 +220,7 @@ export default function ReportStrays() {
                 className="text-base text-[#6B1A1A]/70 leading-relaxed max-w-2xl"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
-                The more details you share, the easier it becomes for rescuers
-                and shelter partners to identify and help these strays.
+                The more specific your location and description, the faster our partners can identify and reach the animal.
               </p>
             </div>
 
@@ -312,8 +306,7 @@ export default function ReportStrays() {
                       className="text-sm text-[#6B1A1A]/75 leading-relaxed"
                       style={{ fontFamily: "var(--font-montserrat)" }}
                     >
-                      Accurate locations and descriptions help rescue teams
-                      identify strays faster and organise sterilisation safely.
+                      Precise locations and descriptions help sterilisation teams reach animals quickly and plan camps efficiently across Mumbai&apos;s wards.
                     </p>
                   </div>
                 </div>
