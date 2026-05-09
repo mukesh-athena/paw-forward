@@ -144,7 +144,7 @@ function FindAFriendHero() {
           {/* Dog 1 — always visible, smaller on mobile */}
           <div className="pf-b1" style={{ marginBottom: "0px" }}>
             <Blob img="/images/friend-dog-1.png" alt="Dog 1"
-              color="#F0E4B8"
+              color="#F0E6D3"
               wMobile={120} hMobile={112}
               wDesktop={200} hDesktop={186}
               shape="42% 58% 54% 46% / 46% 40% 60% 54%" />
@@ -153,7 +153,7 @@ function FindAFriendHero() {
           {/* Dog 2 — hidden on mobile */}
           <div className="pf-b2 hidden md:block" style={{ marginBottom: "70px" }}>
             <Blob img="/images/friend-dog-2.png" alt="Dog 2"
-              color="#C8CFA8"
+              color="#F0E6D3"
               wMobile={228} hMobile={210}
               wDesktop={228} hDesktop={210}
               shape="52% 48% 42% 58% / 40% 56% 44% 60%" />
@@ -162,7 +162,7 @@ function FindAFriendHero() {
           {/* Dog 3 — always visible, smaller on mobile */}
           <div className="pf-b3" style={{ marginBottom: "15px" }}>
             <Blob img="/images/friend-dog-3.png" alt="Dog 3"
-              color="#E8C898"
+              color="#F0E6D3"
               wMobile={120} hMobile={110}
               wDesktop={215} hDesktop={195}
               shape="56% 44% 40% 60% / 52% 46% 54% 48%" />
@@ -215,7 +215,7 @@ function FindAFriendHero() {
           {/* Dog 4 — always visible, smaller on mobile */}
           <div className="pf-b4" style={{ marginTop: "20px" }}>
             <Blob img="/images/friend-dog-4.png" alt="Dog 4"
-              color="#F4C8C8"
+              color="#F0E6D3"
               wMobile={130} hMobile={108}
               wDesktop={238} hDesktop={198}
               shape="58% 42% 46% 54% / 50% 60% 40% 50%" />
@@ -224,7 +224,7 @@ function FindAFriendHero() {
           {/* Dog 5 — hidden on mobile */}
           <div className="pf-b5 hidden md:block" style={{ marginTop: "0px" }}>
             <Blob img="/images/friend-dog-5.png" alt="Dog 5"
-              color="#D8D8F0"
+              color="#F0E6D3"
               wMobile={218} hMobile={204}
               wDesktop={218} hDesktop={204}
               shape="48% 52% 56% 44% / 42% 50% 50% 58%" />
@@ -233,7 +233,7 @@ function FindAFriendHero() {
           {/* Dog 6 — always visible on mobile, smaller */}
           <div className="pf-b6" style={{ marginTop: "35px" }}>
             <Blob img="/images/friend-dog-6.png" alt="Dog 6"
-              color="#F4C8D8"
+              color="#F0E6D3"
               wMobile={118} hMobile={140}
               wDesktop={180} hDesktop={214}
               shape="44% 56% 52% 48% / 56% 44% 52% 48%" />
