@@ -10,7 +10,7 @@ export default function Partners() {
 
     {
       name: "WSD",
-      fullName: "Welfare of Stray Dogs",
+      fullName: "The Welfare of Stray Dogs",
       logo: "/images/wsd-logo.jpeg",
       description:
         "Paw Forward is partnering with WSD to run an adoption campaign for their shelter animals and coordinate sterilisation drives across local communities.",
