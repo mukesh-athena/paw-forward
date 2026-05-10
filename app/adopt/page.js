@@ -65,7 +65,7 @@ export default function AdoptAPaw() {
           />
           <ShelterSection
             shelterId="wsd" shelterName="WSD"
-            shelterTagline="Welfare of Stray Dogs"
+            shelterTagline="The Welfare of Stray Dogs"
             pets={wsdPets} loading={loading} error={error}
             onAdopt={(pet) => setSelected({ dog: pet, shelterId: "wsd", shelterName: "WSD" })}
           />
