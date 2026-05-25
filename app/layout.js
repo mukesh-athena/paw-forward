@@ -1,5 +1,6 @@
 import { Playfair_Display, League_Spartan, Montserrat } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const playfair = Playfair_Display({
   variable: "--font-spartan",
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
         className={`${playfair.variable} ${spartan.variable} ${montserrat.variable}`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
