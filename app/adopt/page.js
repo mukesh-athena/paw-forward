@@ -65,7 +65,7 @@ export default function AdoptAPaw() {
           />
           <ShelterSection
             shelterId="wsd" shelterName="WSD"
-            shelterTagline="Welfare of Stray Dogs"
+            shelterTagline="The Welfare of Stray Dogs"
             pets={wsdPets} loading={loading} error={error}
             onAdopt={(pet) => setSelected({ dog: pet, shelterId: "wsd", shelterName: "WSD" })}
           />
@@ -379,11 +379,23 @@ const translateAmount = isMobile
                     className="flex-shrink-0 w-full md:w-[calc(25%-24px)] bg-white rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.08)] hover:-translate-y-3 hover:shadow-[0_25px_60px_rgba(107,26,26,0.18)] transition-all duration-500 cursor-pointer"
                     onClick={() => onAdopt(pet)}
                   >
-                    <div className="relative h-[320px] md:h-[380px] overflow-hidden bg-[#FAF6EF]">
-                      <img src={pet.image} alt={pet.name}
-                        className="absolute inset-0 w-full h-full object-cover object-top hover:scale-110 transition-transform duration-700 ease-out" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#6B1A1A]/70 via-[#6B1A1A]/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
-                    </div>
+                    <div className="relative h-[320px] md:h-[380px] overflow-hidden bg-[#FAF6EF] group/card">
+  <img src={pet.image} alt={pet.name}
+    className="absolute inset-0 w-full h-full object-cover object-top group-hover/card:scale-110 transition-transform duration-700 ease-out" />
+  <div className="absolute inset-0 bg-gradient-to-t from-[#6B1A1A]/70 via-[#6B1A1A]/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
+  <img
+    src="/images/image-removebg-preview (3) 2.png"
+    alt=""
+    className="absolute pointer-events-none -left-72 group-hover/card:left-[-40px] transition-all duration-500 ease-out md:block hidden"
+    style={{ width: "320px", bottom: "-115px" }}
+  />
+  <img
+    src="/images/image-removebg-preview (2) 2.png"
+    alt=""
+    className="absolute pointer-events-none -right-72 group-hover/card:right-[-40px] transition-all duration-500 ease-out md:block hidden"
+    style={{ width: "320px", bottom: "-65px" }}
+  />
+</div>
                     <div className="p-7 space-y-5">
                       <h3 className="text-4xl text-[#6B1A1A] text-center"
                         style={{ fontFamily: "var(--font-spartan)" }}>{pet.name}</h3>
